@@ -29,10 +29,10 @@ typedef struct
     pthread_cond_t cond_non_full;
 } IntChannel;
 
-void CHARCH_init_channel(IntChannel* chan, int chan_size, int mess_size);
-void CHARCH_destroy_channel(IntChannel* chan);
-void CHARCH_send(IntChannel* chan, const char* value);
-void CHARCH_receive(IntChannel* chan, char* buffer, int buffer_size);
+void INTCH_init_channel(IntChannel *chan, int chan_size);
+void INTCH_destroy_channel(IntChannel* chan);
+void INTCH_send(IntChannel *chan, int value);
+int INTCH_receive(IntChannel *chan);
 
 
 #endif
