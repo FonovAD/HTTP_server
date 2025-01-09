@@ -8,7 +8,8 @@
 #include "chan.h"
 
 #define BUFFER_SIZE 1024
-#define POOL_SIZE 10
+#define POOL_SIZE 20
+#define CHAN_SIZE 1000
 
 typedef struct
 {
@@ -94,8 +95,10 @@ void request_processing(int client_fd)
     {
         printf("%s\n", buffer);
     }
+    usleep(1000);
     send_response(client_fd);
     close(client_fd);
+    free(buffer);
 }
 
 void thread(void *arg)
@@ -116,7 +119,7 @@ void start(Server *server)
     }
     printf("Server listening on port %d\n", server->port);
     IntChannel ch;
-    INTCH_init_channel(&ch, 10);
+    INTCH_init_channel(&ch, CHAN_SIZE);
     ThreadPool th_pool;
     init_thread_pool(&th_pool, thread, &ch);
 
